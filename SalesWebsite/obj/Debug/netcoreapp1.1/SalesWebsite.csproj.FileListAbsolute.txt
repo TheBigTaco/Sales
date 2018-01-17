@@ -1,0 +1,10 @@
+/Users/Guest/Desktop/SalesWebsite/SalesWebsite/bin/Debug/netcoreapp1.1/SalesWebsite.deps.json
+/Users/Guest/Desktop/SalesWebsite/SalesWebsite/bin/Debug/netcoreapp1.1/SalesWebsite.runtimeconfig.json
+/Users/Guest/Desktop/SalesWebsite/SalesWebsite/bin/Debug/netcoreapp1.1/SalesWebsite.runtimeconfig.dev.json
+/Users/Guest/Desktop/SalesWebsite/SalesWebsite/bin/Debug/netcoreapp1.1/SalesWebsite.dll
+/Users/Guest/Desktop/SalesWebsite/SalesWebsite/bin/Debug/netcoreapp1.1/SalesWebsite.pdb
+/Users/Guest/Desktop/SalesWebsite/SalesWebsite/obj/Debug/netcoreapp1.1/SalesWebsite.AssemblyInfo.cs
+/Users/Guest/Desktop/SalesWebsite/SalesWebsite/obj/Debug/netcoreapp1.1/SalesWebsite.dll
+/Users/Guest/Desktop/SalesWebsite/SalesWebsite/obj/Debug/netcoreapp1.1/SalesWebsite.pdb
+/Users/Guest/Desktop/SalesWebsite/SalesWebsite/obj/Debug/netcoreapp1.1/SalesWebsite.csprojResolveAssemblyReference.cache
+/Users/Guest/Desktop/SalesWebsite/SalesWebsite/obj/Debug/netcoreapp1.1/SalesWebsite.csproj.CoreCompileInputs.cache
