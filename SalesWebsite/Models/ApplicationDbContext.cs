@@ -21,12 +21,13 @@ namespace SalesWebsite.Models
                 entity.Property(m => m.NormalizedUserName).HasMaxLength(127);
             });
 
-            builder.Entity<IdentityRole>(entity => {
+            builder.Entity<ApplicationRole>(entity => {
                 entity.Property(m => m.Name).HasMaxLength(127);
                 entity.Property(m => m.NormalizedName).HasMaxLength(127);
             });
 
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Temp> Temps { get; set; }
     }
 }

@@ -4,5 +4,115 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2> Posts </h2>
+    <h2>Basic AJAX</h2>
+    <h4 class="hello-ajax">Hello AJAX</h4>
+    <div id="result1"></div>
+
+    <h2>Using Parameters</h2>
+    <h4 class="sum">Sum</h4>
+    <div id="result2"></div>
+
+    <h2>Using JSON to display an object</h2>
+    <h4 class="display-object">Display object</h4>
+    <div id="result3"></div>
+
+    <h2>Displaying a view</h2>
+    <h4 class="display-view">Display view</h4>
+    <div id="result4"></div>
+
+    <h2>Using a form to make a GET request</h2>
+    <form action="RandomDestinationList" class="display-random-database-items">
+      <label for="destinationCount">How many destinations would you like to see?</label>
+      <input type="number" name="destinationCount" />
+      <button type="submit">Submit</button>
+    </form>
+    <div id="result5"></div>
+
+    <h2>Submitting data with a POST request</h2>
+    <form action="NewDestination" class="new-destination">
+        <label for="newCity">City: </label>
+        <input type="text" name="newCity" />
+        <label for="newCountry">Country: </label>
+        <input type="text" name="newCountry" />
+        <button type="submit">Submit</button>
+    </form>
+    <div id="result6"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.hello-ajax').click(function(){
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("HelloAjax")',
+                    success: function(result) {
+                        $('#result1').html(result);
+                    }
+                });
+            });
+            $('.sum').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    data: { firstNumber: 3, secondNumber: 7 },
+                    url: '@Url.Action("Sum")',
+                    success: function (result) {
+                        $('#result2').html(result);
+                    }
+                });
+            });
+        	$('.display-object').click(function () {
+              $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json',
+                url: '@Url.Action("DisplayObject")',
+                success: function (result) {
+                  var resultString = 'Id: ' + result.id + '<br>City: ' + result.city + '<br>Country: ' + result.country;
+                  $('#result3').html(resultString);
+                }
+              });
+            });
+        	$('.display-view').click(function () {
+              $.ajax({
+                type: 'GET',
+                dataType: 'html',
+                url: '@Url.Action("DisplayViewWithAjax")',
+                success: function (result) {
+                  $('#result4').html(result);
+                }
+              });
+            });
+        	$('.display-random-database-items').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("RandomDestinationList")',
+                    type: 'GET',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function (result) {
+                        var stringResult = '<ul>';
+                        for (var i = 0; i < result.length; i++) {
+                            stringResult += '<li>' + result[i].city + ', ' + result[i].country + '</li>';
+                        }
+                        stringResult += '</ul>';
+                        $('#result5').html(stringResult);
+                    }
+                });
+            });
+        	$('.new-destination').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("NewDestination")',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        var resultMessage = 'You\'ve added a new destination to the database!<br>Id: ' + result.id + '<br>City: ' + result.city + '<br>Country: ' + result.country;
+                        $('#result6').html(resultMessage);
+                    }
+                });
+            });
+        });
+    </script>
+   
+
 <hr/>
