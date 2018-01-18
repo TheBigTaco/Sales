@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -104,32 +105,72 @@ namespace SalesWebsite.Controllers
             return View(roles);
         }
 
-        public ActionResult Edit(string roleName)
+        public IActionResult Delete(string roleName)
         {
             var thisRole = _db.Roles.Where(r => r.Name == roleName).FirstOrDefault();
-
-            return View(thisRole);
+            _db.Roles.Remove(thisRole);
+            _db.SaveChanges();
+            return RedirectToAction("Role");
         }
 
-        //TODO: THIS IS SO BROKEN DON'T EVEN TRY AAAARRRRGGGHHH
-        //TODO: Delete Role and Create Edited Role, EntityStateChange does not work
-        // POST: /Roles/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole role)
-        //{
-        //    try
-        //    {
-        //        var thisRole = _db.Roles.Where(r => r.Name.Equals).FirstOrDefault();
-        //        _db.Roles.Remove(thisRole);
-        //        _db.SaveChanges();
+        public IActionResult ManageUserRoles()
+        {
+            ViewBag.list = new SelectList(_db.Roles, "Name", "Name");
+            return View();
+        }
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RoleAddToUser(string UserName, string RoleName)
+        {
+            var user = _db.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            await _userManager.AddToRoleAsync(user, RoleName);
+
+            ViewBag.ResultMessage = "Role created successfully !";
+
+            // prepopulat roles for the view dropdown
+            ViewBag.list = new SelectList(_db.Roles, "Name");
+
+            return View("ManageUserRoles");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GetRoles(string UserName)
+        {
+            if (!string.IsNullOrWhiteSpace(UserName))
+            {
+                ApplicationUser user = _db.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+
+
+                ViewBag.RolesForThisUser = await _userManager.GetRolesAsync(user);
+
+                // prepopulat roles for the view dropdown
+                ViewBag.list = new SelectList(_db.Roles, "Name");
+            }
+
+            return View("ManageUserRoles");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteRoleForUser(string UserName, string RoleName)
+        {
+            ApplicationUser user = _db.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+
+            if (await _userManager.IsInRoleAsync(user, RoleName))
+            {
+                await _userManager.RemoveFromRoleAsync(user, RoleName);
+                ViewBag.ResultMessage = "Role removed from this user successfully !";
+            }
+            else
+            {
+                ViewBag.ResultMessage = "This user doesn't belong to selected role.";
+            }
+            // prepopulat roles for the view dropdown
+            ViewBag.list = new SelectList(_db.Roles, "Name");
+
+            return View("ManageUserRoles");
+        }
     }
 }

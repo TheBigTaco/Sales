@@ -12,8 +12,7 @@
     @foreach (var role in Model)
 {
     <p><strong>@role.Name | </strong> 
-    <span onclick="return confirm('Are you sure to delete?')"><a href="/Roles/Delete?RoleName=@role.Name" class="delLink" style="color:red;">Delete</a></span> | 
-    @Html.ActionLink("Edit", "Edit", new { roleName = @role.Name })
+	@Html.ActionLink("Delete", "Delete", new { roleName = role.Name})	
     </p>
 }
 </div>
