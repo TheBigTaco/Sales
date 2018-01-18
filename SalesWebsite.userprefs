@@ -1,9 +1,12 @@
 ﻿<Properties StartupConfiguration="{0CE86CE9-0769-4A7A-A8BD-74EE4B3E44CE}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="SalesWebsite/Views/Shared/_Layout.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SalesWebsite/wwwroot/Master.css">
     <Files>
-      <File FileName="SalesWebsite/Controllers/AccountController.cs" Line="171" Column="62" />
       <File FileName="SalesWebsite/Views/Account/ManageUserRoles.cshtml" Line="52" Column="53" />
-      <File FileName="SalesWebsite/Views/Shared/_Layout.cshtml" Line="11" Column="31" />
+      <File FileName="SalesWebsite/Views/Shared/_Layout.cshtml" Line="14" Column="14" />
+      <File FileName="SalesWebsite/Views/Account/Index.cshtml" Line="23" Column="2" />
+      <File FileName="SalesWebsite/Controllers/AccountController.cs" Line="31" Column="10" />
+      <File FileName="SalesWebsite/Views/Home/Index.cshtml" Line="7" Column="53" />
+      <File FileName="SalesWebsite/wwwroot/Master.css" Line="2" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

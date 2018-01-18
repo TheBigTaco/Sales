@@ -29,7 +29,7 @@ namespace SalesWebsite.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(_db.Products.ToList());
         }
 
         public IActionResult Register()
@@ -44,7 +44,7 @@ namespace SalesWebsite.Controllers
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
             if(result.Succeeded)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", null);
             }
             else
             {
@@ -75,7 +75,7 @@ namespace SalesWebsite.Controllers
         public async Task<IActionResult> LogOff()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home", null);
         }
 
         // GET: /Roles/Create

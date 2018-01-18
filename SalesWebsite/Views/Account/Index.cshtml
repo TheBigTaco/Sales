@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<SalesWebsite.Models.Product>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,5 +7,17 @@
 
 @using System.Security.Claims
 
-<h2>Top Questions</h2>
+<h2>THIS IS A PRODUCT LIST</h2>
 <hr />
+
+@if (User.Identity.IsAuthenticated)
+{
+    foreach(var product in Model)
+    {
+        <p><strong>@product.Name</strong> | $@product.Price</p>
+    }
+}
+else
+{
+<h1><strong>YOU ARE NOT A TRUE UNBELIEVER</strong></h1>
+}
